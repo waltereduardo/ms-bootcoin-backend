@@ -10,7 +10,7 @@ import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 
 @Configuration
-@EnableReactiveMongoRepositories(basePackages = "com.nttdata.bootcam.banca.consulta.client.mensajeria.repository", reactiveMongoTemplateRef = "mensajeriaReactiveMongoTemplate")
+@EnableReactiveMongoRepositories(basePackages = "com.nttdata.bootcam.banca.bootcoin.banca.mensajeria.repository", reactiveMongoTemplateRef = "mensajeriaReactiveMongoTemplate")
 public class MensajeriaMongoConfig {			
 	
     @Value("${spring.data.mongodbkafka.uri}") 

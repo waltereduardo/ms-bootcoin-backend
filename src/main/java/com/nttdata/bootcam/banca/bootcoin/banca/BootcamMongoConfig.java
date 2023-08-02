@@ -11,7 +11,7 @@ import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 
 @Configuration
-@EnableReactiveMongoRepositories(basePackages = "com.nttdata.bootcam.banca.consulta.client.repository", reactiveMongoTemplateRef = "bootcamReactiveMongoTemplate")
+@EnableReactiveMongoRepositories(basePackages = "com.nttdata.bootcam.banca.bootcoin.banca.repository", reactiveMongoTemplateRef = "bootcamReactiveMongoTemplate")
 public class BootcamMongoConfig {                
 
     @Value("${spring.data.mongodb.uri}")

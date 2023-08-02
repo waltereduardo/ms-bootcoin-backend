@@ -7,6 +7,11 @@ spring:
       uri: mongodb+srv://bootcam:akOU0Wt6DZbORQrD@cluster0.o44govo.mongodb.net/bootcam?retryWrites=true&w=majority
     mongodbkafka:
       uri: mongodb+srv://usermensaje:3aUsSD74IsQsa4LB@clusterkafka.aycs0q6.mongodb.net/mensajeria?retryWrites=true&w=majority
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cache:
+    type: redis
   
   kafka:
     consumer:
@@ -20,7 +25,9 @@ spring:
                     packages=com.nttdata.bootcam.banca.consulta.client.infraestructure.event
 catalog-request-topic: catalog-request-topic
 order-request-topic: order-request-topic
-                         
+
+  
+                       
 springdoc:
     api-docs:
       groups:
@@ -28,3 +35,4 @@ springdoc:
       path: /swagger-doc/v3/api-docs
     swagger-ui:
       path: /swagger-doc/swagger-ui.html
+      

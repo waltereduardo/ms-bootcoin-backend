@@ -1,17 +1,15 @@
 package com.nttdata.bootcam.banca.bootcoin.banca.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 
 @Data
-public class ClientResponse {
+public class ClientBootCoin {
 	
-	
+	private String id;
 	private String typeDocument;
 	private String numberDocument;
+	private String numberPhone;
+	private String email;
 	private String typeClient;
-	private String nameAll;
-
 	
 }

@@ -1,28 +1,26 @@
-package com.nttdata.bootcam.banca.bootcoin.banca.config;
+package com.nttdata.bootcam.banca.bootcoin.banca;
 
 import org.springdoc.core.annotations.RouterOperation;
 import org.springdoc.core.annotations.RouterOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.nttdata.bootcam.banca.bootcoin.banca.dto.ClientResponse;
+import com.nttdata.bootcam.banca.bootcoin.banca.dto.ClientBootCoin;
 import com.nttdata.bootcam.banca.bootcoin.banca.handler.HandlerClient;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Configuration
 public class RouterConfig {
@@ -31,7 +29,7 @@ public class RouterConfig {
 	private HandlerClient handlerClient;
 
 	@RouterOperations({ 
-		@RouterOperation(path = "/router/client", 
+		@RouterOperation(path = "/router/apicoin", 
 				produces = {
 							MediaType.APPLICATION_JSON_VALUE }, 
 							method = RequestMethod.GET, 
@@ -45,14 +43,14 @@ public class RouterConfig {
 														description = "successful operation", 
 														content = @Content(
 																schema = @Schema(
-																		implementation = ClientResponse.class)
+																		implementation = ClientBootCoin.class)
 																)
 														) 
 												}
 									)
 		),
         @RouterOperation(
-                path = "/router/client/{input}",
+                path = "/router/apicoin/{input}",
                 produces = {
                         MediaType.APPLICATION_JSON_VALUE
                 },
@@ -66,7 +64,7 @@ public class RouterConfig {
                                         responseCode = "200",
                                         description = "successful operation",
                                         content = @Content(schema = @Schema(
-                                                implementation = ClientResponse.class
+                                                implementation = ClientBootCoin.class
                                         ))
                                 ),
                                 @ApiResponse(responseCode = "404", description = "client not found with" +
@@ -80,7 +78,7 @@ public class RouterConfig {
 
         ),
         @RouterOperation(
-                path = "/router/client",
+                path = "/router/apicoin",
                 produces = {
                         MediaType.APPLICATION_JSON_VALUE
                 },
@@ -100,7 +98,7 @@ public class RouterConfig {
                         },
                         requestBody = @RequestBody(
                                 content = @Content(schema = @Schema(
-                                        implementation = ClientResponse.class
+                                        implementation = ClientBootCoin.class
                                 ))
                         )
 
@@ -112,10 +110,11 @@ public class RouterConfig {
 		})
 	public RouterFunction<ServerResponse> routerFunction() {
 		return RouterFunctions.route()
-				.GET("", handlerClient::getClienteAll)
-				.GET("/router/client/{input}", handlerClient::findClientById)
-				.POST("/router/client", handlerClient::saveClient)
+//				.GET("", handlerClient::getClienteAll)
+				.GET("/router/apicoin/{input}", handlerClient::findClientById)
+				.POST("/router/apicoin", handlerClient::saveClient)
 				.build();
 	}
 
 }
+

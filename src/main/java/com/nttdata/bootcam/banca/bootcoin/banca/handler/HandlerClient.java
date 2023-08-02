@@ -5,35 +5,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.nttdata.bootcam.banca.bootcoin.banca.repository.ClientRepository;
-import com.nttdata.bootcam.banca.bootcoin.banca.repository.dao.ClientDAO;
+import com.nttdata.bootcam.banca.bootcoin.banca.repository.ClienBootCoinRepository;
+import com.nttdata.bootcam.banca.bootcoin.banca.repository.dao.ClientBootCoinDAO;
 
-import org.springframework.http.MediaType;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class HandlerClient {
 
 	@Autowired
-	private ClientRepository clientRepository;
-
-	public Mono<ServerResponse> getClienteAll(ServerRequest request) {
-		Flux<ClientDAO> clientStream = clientRepository.findAll();
-		return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(clientStream, ClientDAO.class);
+	private ClienBootCoinRepository clienBootCoinRepository;
+	
+	public Mono<ServerResponse> saveClient(ServerRequest request) {
+		Mono<ClientBootCoinDAO> clientMono = request.bodyToMono(ClientBootCoinDAO.class);
+		Mono<String> saveResponse = clientMono.map(dto -> dto.getId() + ":" + dto.getTypeDocument()+":"+dto.getNumberDocument()+":"+dto.getNumberPhone()+":"+dto.getEmail() +":"+dto.getTypeClient());
+		return ServerResponse.ok().body(saveResponse, String.class);
 	}
-
+	
 	public Mono<ServerResponse> findClientById(ServerRequest request) {
 		int clientId = Integer.valueOf(request.pathVariable("input"));
-		Mono<ClientDAO> clientStream = clientRepository.findById(String.valueOf(clientId));
-		return ServerResponse.ok().body(clientStream, ClientDAO.class);
-	}
-
-	public Mono<ServerResponse> saveClient(ServerRequest request) {
-		Mono<ClientDAO> clientMono = request.bodyToMono(ClientDAO.class);
-		Mono<String> saveResponse = clientMono.map(dto -> dto.getId() + ":" + dto.getNameAll()+":"+dto.getNumberDocument()+":"+dto.getTypeDocument()+":"+dto.getTypeClient());
-		return ServerResponse.ok().body(saveResponse, String.class);
+		Mono<ClientBootCoinDAO> clientStream = clienBootCoinRepository.findById(String.valueOf(clientId));
+		return ServerResponse.ok().body(clientStream, ClientBootCoinDAO.class);
 	}
 
 }
